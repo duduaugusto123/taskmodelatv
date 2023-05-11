@@ -1,0 +1,74 @@
+select count(idCLIENTE) from lcliente;
+
+ select * from llicenca where month(DtAquisicao) = 2;
+
+
+
+select * from llicenca where month(DtAquisicao) = "5" and year(DtAquisicao) = "2007";
+
+
+
+select *, right(DescricaoTipo,5) as x from ltipo_empresa order by idTipo_Empresa asc;
+
+
+select *, right(DescricaoTipo,5) as x from ltipo_empresa order by idTipo_Empresa desc;
+
+
+select *, substring(DescricaoTipo, 6,10) from ltipo_empresa;
+
+
+select Nome_RazaoSocial, char_length(Nome_RazaoSocial) from lcliente order by Nome_RazaoSocial asc ;
+
+
+select NUmLicenca, DtAquisicao, now() as dia de hoje, datediff(now(), DtAquisicao) from llicenca;
+
+
+select upper(NomeSetor), lower(NomeSetor) from Lsetor;
+
+
+select s.*, v.versao from lsoftware s join lversao v on s.idsoftware = v.idsoftware_fk order by s.nomesoftware desc;
+
+
+select Nome_RazaoSocial, DescricaoTipo, NomeSetor from  lCLIENTE join lSETOR on idCLIENTE = idSETOR join Ltipo_empresa on idCliente = idTIpo_EmPRESA ;
+
+
+select idCliente, Nome_RazaoSocial, Numlicenca, DtAquisicao,  ValorAquisicao from lcliente join lLICENCA on idCliente = Numlicenca;
+
+
+select Nome_RazaoSocial,NomeSoftware from Lcliente join lSOFTWARE on idCLIENTE = idSOFTWARE;
+
+
+select Nome_RazaoSocial, DescricaoTipo, NomeSetor,UF from lCLIENTE join lSETOR on idCLIENTE = idSETOR join Ltipo_empresa on idCliente = idTIpo_EmPRESA where UF = "SP" OR UF = "RS" OR UF="PR" OR UF="MG";
+
+
+select NomeSoftware, Versao, Nome_RazaoSocial, DescricaoTipo, NomeSetor, NumLicenca, DtAquisicao, ValorAquisicao from lSOFTWARE join lVERSAO on idSOFTWARE_FK = idSOFTWARE join lCLIENTE on idCLIENTE = idSOFTWARE join lTIPO_EMPRESA on idTIPO_Empresa = idSOFTWARE join lSETOR on idSETOR = idSOFTWARE join lLICENCA on idCLIENTE_FK = idSOFTWARE
+
+
+select count(*) from lLICENCA;
+
+
+select sum(ValorAquisicao), max(ValorAquisicao), min(ValorAquisicao), avg(ValorAquisicao) from  lLICENCA
+
+
+select Nome_RazaoSocial, NomeSetor from lCLIENTE join lSETOR on idCLIENTE = idSETOR where NomeSetor = 'Farmacautica'
+
+
+select nome_razaoSocial, count(NumLicenca) from lcliente join llicenca on idCLIENTE = idCliente_FK group by(nome_razaoSocial); 
+
+
+select c.nome_razaosocial, sum(l.valoraquisicao), avg(l.valoraquisicao) from llicenca l join lcliente c on l.idcliente_fk = c.idcliente group by c.nome_razaosocial;
+
+
+select s.nomesetor, sum(l.valoraquisicao) from llicenca l join lcliente c on l.idcliente_fk = c.idcliente join lsetor s on c.idsetor_fk = s.idsetor where s.nomesetor = 'Financeira' group by s.nome_razaosocial;
+
+
+select s.idsoftware, sum(l.valoraquisicao) from llicenca l join lversao v on l.versao_fk = v.versao join lsoftware s on v.idsoftware group by s.idsoftware;
+
+
+select c.nome_razaosocial, s.nomesoftware, count(l.idsoftware_fk_fk) from lcliente c join llicenca l on c.idcliente = l.idcliente_fk join lsoftware s on l.idsoftware_fk_fk = s.idsoftware group by l.numlicenca;
+
+
+select c.nome_razaosocial, count(l.numlicenca) as 'qtd' from lcliente c join llicenca l on c.idcliente = l.idcliente_fk group by c.nome_razaosocial having count(l.numlicenca) >10;
+
+
+ 
